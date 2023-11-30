@@ -27,17 +27,17 @@
 #    - configuration
 #    - php-fpm-ondrej
 #    - php-fpm-ondrej-configuration
-#
-#- name: mods-install
-#  ansible.builtin.import_tasks: mods-install.yml
-#  tags:
-#    - configuration
-#    - php-fpm-ondrej
-#    - php-fpm-ondrej-mods-install
-#
-#- name: mods-state
-#  ansible.builtin.import_tasks: mods-state.yml
-#  tags:
-#    - configuration
-#    - php-fpm-ondrej
-#    - php-fpm-ondrej-mods-state
+
+- name: mods-install
+  ansible.builtin.import_tasks: mods-install.yml
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-mods-install
+
+- name: mods-state
+  ansible.builtin.import_tasks: mods-state.yml
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-mods-state

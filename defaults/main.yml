@@ -8,18 +8,27 @@ php_fpm_ondrej_install: []
 
 php_fpm_ondrej_update_alternatives: true
 
-php_fpm_ondrej_precision: 14
-php_fpm_ondrej_serialize_precision: "{{ -1 if (php_fpm_ondrej_version is version('7.1', '>=')) else 17 }}"
-php_fpm_ondrej_disable_functions: []
-php_fpm_ondrej_max_execution_time: 0
-php_fpm_ondrej_memory_limit: -1
-php_fpm_ondrej_error_reporting: 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
-php_fpm_ondrej_zend_assertions: -1
+## general
+php_fpm_ondrej_php_expose: false
+php_fpm_ondrej_php_max_input_vars: 1000
+php_fpm_ondrej_php_precision: 14
+php_fpm_ondrej_php_serialize_precision: "{{ -1 if (php_fpm_ondrej_php_version is version('7.1', '>=')) else 17 }}"
+php_fpm_ondrej_php_realpath_cache_size: "{{ '4096k' if (php_fpm_ondrej_php_version is version('7.2', '>=')) else '16k' }}"
+php_fpm_ondrej_php_realpath_cache_ttl: 120
+php_fpm_ondrej_php_max_execution_time: 30
+php_fpm_ondrej_php_memory_limit: 128M
+php_fpm_ondrej_php_error_reporting: 'E_ALL & ~E_DEPRECATED & ~E_STRICT'
+php_fpm_ondrej_php_post_max_size: 8M
+php_fpm_ondrej_php_upload_max_filesize: 2M
+php_fpm_ondrej_php_save_handler: files
+php_fpm_ondrej_php_session_save_path: /var/lib/php/sessions
 
-php_fpm_ondrej_mods_present:
+## mods
+php_fpm_ondrej_php_mods_present:
+  - name: opcache
+  - name: igbinary
   - name: json
   - name: xml
-  - name: readline
   - name: mysql
   - name: memcache
   - name: memcached
@@ -28,11 +37,69 @@ php_fpm_ondrej_mods_present:
   - name: mcrypt
   - name: gd
   - name: curl
-php_fpm_ondrej_mods_present_names: "{{ php_fpm_ondrej_mods_present | map(attribute='name') | list }}"
-php_fpm_ondrej_mods_present_disabled_names: "{{ php_fpm_ondrej_mods_present | selectattr('state', 'defined') | selectattr('state', 'equalto', 'disabled') | map(attribute='name') | list }}"
+php_fpm_ondrej_php_mods_present_names: "{{ php_fpm_ondrej_php_mods_present | map(attribute='name') | list }}"
+php_fpm_ondrej_php_mods_present_disabled_names: "{{ php_fpm_ondrej_php_mods_present | selectattr('state', 'defined') | selectattr('state', 'equalto', 'disabled') | map(attribute='name') | list }}"
 
-php_fpm_ondrej_mods_absent:
-  - name: opcache
-php_fpm_ondrej_mods_absent_names: "{{ php_fpm_ondrej_mods_absent | map(attribute='name') | list }}"
+php_fpm_ondrej_php_mods_absent: []
+php_fpm_ondrej_php_mods_absent_names: "{{ php_fpm_ondrej_php_mods_absent | map(attribute='name') | list }}"
+
+### opcache
+php_fpm_ondrej_opcache_enable: true
+php_fpm_ondrej_opcache_enable_cli: false
+php_fpm_ondrej_opcache_memory_consumption_mb: 32
+php_fpm_ondrej_opcache_interned_strings_buffer_mb: 4
+php_fpm_ondrej_opcache_max_accelerated_files: 3907
+php_fpm_ondrej_opcache_validate_timestamps: true
+php_fpm_ondrej_opcache_revalidate_freq: 0
+# TODO: Removed in PHP >= 7.2.0
+php_fpm_ondrej_opcache_fast_shutdown: true
+
+### memcache
+php_fpm_ondrej_memcache_allow_failover: true
+php_fpm_ondrej_memcache_chunk_size: 32768
+php_fpm_ondrej_memcache_compress_threshold: 20000
+php_fpm_ondrej_memcache_default_port: 11211
+php_fpm_ondrej_memcache_hash_function: crc32
+php_fpm_ondrej_memcache_hash_strategy: consistent
+php_fpm_ondrej_memcache_lock_timeout: 15
+php_fpm_ondrej_memcache_max_failover_attempts: 20
+php_fpm_ondrej_memcache_protocol: ascii
+php_fpm_ondrej_memcache_redundancy: 1
+php_fpm_ondrej_memcache_session_redundancy: 2
+
+### memcached
+php_fpm_ondrej_memcached_sess_locking: true
+php_fpm_ondrej_memcached_sess_lock_wait: 150000
+php_fpm_ondrej_memcached_sess_lock_max_wait: 0
+php_fpm_ondrej_memcached_sess_lock_expire: 0
+php_fpm_ondrej_memcached_sess_prefix: 'memc.sess.key.'
+php_fpm_ondrej_memcached_sess_consistent_hash: "{{ false if (php_fpm_ondrej_php_version is version('7', '<')) else true }}"
+# TODO: Renamed in PHP >= 7
+php_fpm_ondrej_memcached_sess_remove_failed: true
+php_fpm_ondrej_memcached_sess_number_of_replicas: 0
+# TODO: Renamed in PHP >= 7
+php_fpm_ondrej_memcached_sess_binary: false
+php_fpm_ondrej_memcached_sess_randomize_replica_read: false
+php_fpm_ondrej_memcached_sess_connect_timeout: 1000
+php_fpm_ondrej_memcached_sess_sasl_username: 'NULL'
+php_fpm_ondrej_memcached_sess_sasl_password: 'NULL'
+php_fpm_ondrej_memcached_compression_type: fastlz
+php_fpm_ondrej_memcached_compression_factor: 1.3
+php_fpm_ondrej_memcached_compression_threshold: 2000
+php_fpm_ondrej_memcached_serializer: igbinary
+# TODO: Removed in PHP >= 7
+php_fpm_ondrej_memcached_use_sasl: false
+php_fpm_ondrej_memcached_store_retry_count: 2
+
+#### PHP >= 7
+php_fpm_ondrej_memcached_sess_lock_wait_min: 150
+php_fpm_ondrej_memcached_sess_lock_wait_max: 150
+php_fpm_ondrej_memcached_sess_lock_retries: 5
+php_fpm_ondrej_memcached_sess_persistent: false
+php_fpm_ondrej_memcached_sess_remove_failed_servers: false
+php_fpm_ondrej_memcached_sess_binary_protocol: true
+php_fpm_ondrej_memcached_default_consistent_hash: false
+php_fpm_ondrej_memcached_default_binary_protocol: false
+php_fpm_ondrej_memcached_default_connect_timeout: 0
 
 # yamllint enable rule:line-length
