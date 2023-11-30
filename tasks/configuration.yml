@@ -1,0 +1,19 @@
+# tasks file
+---
+- name: configuration | update alternatives
+  community.general.alternatives:
+    name: php
+    path: "/usr/bin/php{{ php_fpm_ondrej_version }}"
+  when: php_fpm_ondrej_update_alternatives | bool
+  tags:
+    - php-fpm-ondrej-configuration-update-alternatives
+
+- name: configuration | update php.ini
+  ansible.builtin.template:
+    src: "{{ php_fpm_ondrej_configuration_file.lstrip('/') }}.j2"
+    dest: "{{ php_fpm_ondrej_configuration_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - php-fpm-ondrej-configuration-general

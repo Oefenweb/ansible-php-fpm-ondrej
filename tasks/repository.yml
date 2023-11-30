@@ -1,0 +1,19 @@
+# tasks file
+---
+- name: repository | install | dependencies (pre)
+  ansible.builtin.apt:
+    name: "{{ php_fpm_ondrej_dependencies_pre }}"
+    state: "{{ apt_install_state | default('latest') }}"
+    update_cache: true
+    cache_valid_time: "{{ apt_update_cache_valid_time | default(3600) }}"
+  tags:
+    - php-fpm-ondrej-repository-install
+    - php-fpm-ondrej-repository-install-dependencies
+
+- name: repository | add
+  ansible.builtin.apt_repository:
+    repo: 'ppa:ondrej/php'
+    update_cache: true
+    mode: 0644
+  tags:
+    - php-fpm-ondrej-repository-add

@@ -1,0 +1,20 @@
+# meta file
+---
+galaxy_info:
+  namespace: oefenweb
+  role_name: php_fpm_ondrej
+  author: Mischa ter Smitten
+  company: Oefenweb.nl B.V.
+  description: Set up PHP-FPM (FastCGI Process Manager) in Ubuntu systems (using Ondřej Surý's ppa)
+  license: MIT
+  min_ansible_version: 2.10.0
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+        - jammy
+  galaxy_tags:
+    - system
+    - web
+dependencies: []

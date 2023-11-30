@@ -1,0 +1,61 @@
+# test file
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - role: ../../
+      php_fpm_ondrej_version: 8.2
+      php_fpm_ondrej_update_alternatives: false
+      php_fpm_ondrej_mods_present:
+        - name: json
+        - name: xml
+        - name: readline
+        - name: mysql
+        - name: memcached
+        - name: msgpack
+        - name: mbstring
+        - name: gd
+        - name: curl
+
+    - role: ../../
+      php_fpm_ondrej_version: 8.1
+      php_fpm_ondrej_update_alternatives: true
+      php_fpm_ondrej_mods_present:
+        - name: json
+        - name: xml
+        - name: readline
+        - name: mysql
+        - name: memcached
+        - name: msgpack
+        - name: mbstring
+        - name: gd
+        - name: curl
+
+    - role: ../../
+      php_fpm_ondrej_version: 8.0
+      php_fpm_ondrej_update_alternatives: false
+      php_fpm_ondrej_mods_present:
+        - name: json
+        - name: xml
+        - name: readline
+        - name: mysql
+        - name: memcached
+        - name: msgpack
+        - name: mbstring
+        - name: gd
+        - name: curl
+
+    - role: ../../
+      php_fpm_ondrej_version: 7.4
+      php_fpm_ondrej_update_alternatives: false
+      php_fpm_ondrej_mods_present:
+        - name: json
+        - name: xml
+        - name: readline
+        - name: mysql
+        - name: memcached
+        - name: msgpack
+        - name: mbstring
+        - name: gd
+        - name: curl
