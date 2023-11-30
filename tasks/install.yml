@@ -1,0 +1,15 @@
+# tasks file
+---
+- name: install | dependencies
+  ansible.builtin.apt:
+    name: "{{ php_fpm_ondrej_dependencies }}"
+    state: "{{ apt_install_state | default('latest') }}"
+  tags:
+    - php-fpm-ondrej-install-dependencies
+
+- name: install | additional
+  ansible.builtin.apt:
+    name: "{{ php_fpm_ondrej_install }}"
+    state: "{{ apt_install_state | default('latest') }}"
+  tags:
+    - php-fpm-ondrej-install-additional

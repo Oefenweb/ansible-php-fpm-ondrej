@@ -1,0 +1,23 @@
+# tasks file
+---
+- name: mods install | install
+  ansible.builtin.set_fact:
+    php_fpm_ondrej_mods_dependencies_sodium: []
+  when: php_fpm_ondrej_version is version('7.1', '>')
+  tags:
+    - php-fpm-ondrej-mods-install-install
+
+- name: mods install | install
+  ansible.builtin.set_fact:
+    php_fpm_ondrej_mods_dependencies_json: []
+  when: php_fpm_ondrej_version is version('8.0', '>=')
+  tags:
+    - php-fpm-ondrej-mods-install-install
+
+- name: mods install | install
+  ansible.builtin.apt:
+    name: "{{ item.dependencies | default(php_fpm_ondrej_mods_dependencies[item.name]) | default([]) }}"
+    state: "{{ apt_install_state | default('latest') }}"
+  with_items: "{{ php_fpm_ondrej_mods_present }}"
+  tags:
+    - php-fpm-ondrej-mods-install-install
