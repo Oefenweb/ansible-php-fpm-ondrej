@@ -35,9 +35,53 @@
     - php-fpm-ondrej
     - php-fpm-ondrej-mods-install
 
+- name: php mods opcache
+  ansible.builtin.import_tasks: mods-opcache.yml
+  when:
+    - "'opcache' in php_fpm_ondrej_php_mods_present_names"
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-php
+    - php-fpm-ondrej-php-mods
+    - php-fpm-ondrej-php-mods-opcache
+
+- name: php mods memcache
+  ansible.builtin.import_tasks: mods-memcache.yml
+  when:
+    - "'memcache' in php_fpm_ondrej_php_mods_present_names"
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-php
+    - php-fpm-ondrej-php-mods
+    - php-fpm-ondrej-php-mods-memcache
+
+- name: php mods memcached
+  ansible.builtin.import_tasks: mods-memcached.yml
+  when:
+    - "'memcached' in php_fpm_ondrej_php_mods_present_names"
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-php
+    - php-fpm-ondrej-php-mods
+    - php-fpm-ondrej-php-mods-memcached
+
 - name: mods-state
   ansible.builtin.import_tasks: mods-state.yml
   tags:
     - configuration
     - php-fpm-ondrej
     - php-fpm-ondrej-mods-state
+
+- name: start and enable service
+  ansible.builtin.service:
+    name: php-fpm
+    state: "{{ service_default_state | default('started') }}"
+    enabled: "{{ service_default_enabled | default(true) | bool }}"
+  tags:
+    - configuration
+    - php-fpm-ondrej
+    - php-fpm-ondrej-apache
+    - php-fpm-ondrej-apache-start-enable-service
