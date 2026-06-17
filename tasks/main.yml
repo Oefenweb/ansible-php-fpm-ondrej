@@ -21,12 +21,12 @@
     - php-fpm-ondrej
     - php-fpm-ondrej-install
 
-#- name: configuration
-#  ansible.builtin.import_tasks: configuration.yml
-#  tags:
-#    - configuration
-#    - php-fpm-ondrej
-#    - php-fpm-ondrej-configuration
+# - name: configuration
+#   ansible.builtin.import_tasks: configuration.yml
+#   tags:
+#     - configuration
+#     - php-fpm-ondrej
+#     - php-fpm-ondrej-configuration
 
 - name: mods-install
   ansible.builtin.import_tasks: mods-install.yml
