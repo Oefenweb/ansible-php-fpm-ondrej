@@ -1,0 +1,13 @@
+# handlers file
+---
+- name: restart php-fpm
+  ansible.builtin.service:
+    name: php-fpm
+    state: restarted
+  when: service_default_state | default('started') == 'started'
+
+- name: reload php-fpm
+  ansible.builtin.service:
+    name: php-fpm
+    state: reloaded
+  when: service_default_state | default('started') == 'started'

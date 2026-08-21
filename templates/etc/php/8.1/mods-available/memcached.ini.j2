@@ -1,0 +1,32 @@
+{{ ansible_managed | comment(decoration='; ') }}
+
+; configuration for php Memcached module
+; see https://github.com/php-memcached-dev/php-memcached/blob/HEAD/memcached.ini
+; priority=25
+
+extension=memcached.so
+
+[memcached]
+memcached.sess_locking = {{ php_fpm_ondrej_memcached_sess_locking | bool | int }}
+memcached.sess_lock_wait_min = {{ php_fpm_ondrej_memcached_sess_lock_wait_min }}
+memcached.sess_lock_wait_max = {{ php_fpm_ondrej_memcached_sess_lock_wait_max }}
+memcached.sess_lock_retries = {{ php_fpm_ondrej_memcached_sess_lock_retries }}
+memcached.sess_lock_expire = {{ php_fpm_ondrej_memcached_sess_lock_expire }}
+memcached.sess_prefix = {{ php_fpm_ondrej_memcached_sess_prefix }}
+memcached.sess_persistent = {{ php_fpm_ondrej_memcached_sess_persistent | bool | int }}
+memcached.sess_consistent_hash = {{ php_fpm_ondrej_memcached_sess_consistent_hash | bool | int }}
+memcached.sess_remove_failed_servers = {{ php_fpm_ondrej_memcached_sess_remove_failed_servers | bool | int }}
+memcached.sess_number_of_replicas = {{ php_fpm_ondrej_memcached_sess_number_of_replicas }}
+memcached.sess_binary_protocol = {{ php_fpm_ondrej_memcached_sess_binary_protocol | bool | int }}
+memcached.sess_randomize_replica_read = {{ php_fpm_ondrej_memcached_sess_randomize_replica_read | bool | int }}
+memcached.sess_connect_timeout = {{ php_fpm_ondrej_memcached_sess_connect_timeout }}
+memcached.sess_sasl_username = {{ php_fpm_ondrej_memcached_sess_sasl_username }}
+memcached.sess_sasl_password = {{ php_fpm_ondrej_memcached_sess_sasl_password }}
+memcached.compression_type = {{ php_fpm_ondrej_memcached_compression_type }}
+memcached.compression_factor = {{ php_fpm_ondrej_memcached_compression_factor }}
+memcached.compression_threshold = {{ php_fpm_ondrej_memcached_compression_threshold }}
+memcached.serializer = {{ php_fpm_ondrej_memcached_serializer }}
+memcached.store_retry_count = {{ php_fpm_ondrej_memcached_store_retry_count }}
+memcached.default_consistent_hash = {{ php_fpm_ondrej_memcached_default_consistent_hash | bool | int }}
+memcached.default_binary_protocol = {{ php_fpm_ondrej_memcached_default_binary_protocol | bool | int }}
+memcached.default_connect_timeout = {{ php_fpm_ondrej_memcached_default_connect_timeout }}

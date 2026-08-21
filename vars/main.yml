@@ -1,0 +1,75 @@
+# vars file
+---
+php_fpm_ondrej_versions_supported:
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - '7.4'
+  - '8.0'
+  - '8.1'
+  - '8.2'
+
+php_fpm_ondrej_dependencies_pre:
+  - software-properties-common
+  - dirmngr
+
+php_fpm_ondrej_dependencies:
+  - "php{{ php_fpm_ondrej_version }}-fpm"
+
+php_fpm_ondrej_configuration_file: "/etc/php/{{ php_fpm_ondrej_version }}/fpm/php.ini"
+php_fpm_ondrej_mods_available_path: "/etc/php/{{ php_fpm_ondrej_version }}/mods-available"
+php_fpm_ondrej_conf_d_file: "/etc/php/{{ php_fpm_ondrej_version }}/fpm/conf.d"
+
+php_fpm_ondrej_mods_dependencies:
+  json: "{{ php_fpm_ondrej_mods_dependencies_json }}"
+  xml:
+    - "php{{ php_fpm_ondrej_version }}-xml"
+  mysql:
+    - "php{{ php_fpm_ondrej_version }}-mysql"
+  memcached:
+    - "php{{ php_fpm_ondrej_version }}-memcached"
+  memcache:
+    - "php{{ php_fpm_ondrej_version }}-memcache"
+  msgpack:
+    - "php{{ php_fpm_ondrej_version }}-msgpack"
+  igbinary:
+    - "php{{ php_fpm_ondrej_version }}-igbinary"
+  mbstring:
+    - "php{{ php_fpm_ondrej_version }}-mbstring"
+  mcrypt:
+    - "php{{ php_fpm_ondrej_version }}-mcrypt"
+  gd:
+    - "php{{ php_fpm_ondrej_version }}-gd"
+  curl:
+    - "php{{ php_fpm_ondrej_version }}-curl"
+  redis:
+    - "php{{ php_fpm_ondrej_version }}-redis"
+  xdebug:
+    - "php{{ php_fpm_ondrej_version }}-xdebug"
+  intl:
+    - "php{{ php_fpm_ondrej_version }}-intl"
+  readline:
+    - "php{{ php_fpm_ondrej_version }}-readline"
+  soap:
+    - "php{{ php_fpm_ondrej_version }}-soap"
+  snmp:
+    - "php{{ php_fpm_ondrej_version }}-snmp"
+  opcache:
+    - "php{{ php_fpm_ondrej_version }}-opcache"
+  ldap:
+    - "php{{ php_fpm_ondrej_version }}-ldap"
+  gmp:
+    - "php{{ php_fpm_ondrej_version }}-gmp"
+  ast:
+    - "php{{ php_fpm_ondrej_version }}-ast"
+  sqlite3:
+    - "php{{ php_fpm_ondrej_version }}-sqlite3"
+  sodium: "{{ php_fpm_ondrej_mods_dependencies_sodium }}"
+
+php_fpm_ondrej_mods_dependencies_sodium:
+  - "php{{ php_fpm_ondrej_version }}-sodium"
+
+php_fpm_ondrej_mods_dependencies_json:
+  - "php{{ php_fpm_ondrej_version }}-json"

@@ -1,0 +1,10 @@
+# tasks file
+---
+- name: php | mods | opcache | update opcache.ini
+  ansible.builtin.template:
+    src: "{{ php_fpm_ondrej_php_mods_available_path.lstrip('/') }}/opcache.ini.j2"
+    dest: "{{ php_fpm_ondrej_php_mods_available_path }}/opcache.ini"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload apache2

@@ -1,0 +1,19 @@
+{{ ansible_managed | comment(decoration='; ') }}
+
+; configuration for php Memcache module
+; priority=20
+
+extension=memcache.so
+
+[memcache]
+memcache.allow_failover={{ '1' if php_fpm_ondrej_memcache_allow_failover | bool else '0' }}
+memcache.chunk_size={{ php_fpm_ondrej_memcache_chunk_size }}
+memcache.compress_threshold={{ php_fpm_ondrej_memcache_compress_threshold }}
+memcache.default_port={{ php_fpm_ondrej_memcache_default_port }}
+memcache.hash_function={{ php_fpm_ondrej_memcache_hash_function }}
+memcache.hash_strategy={{ php_fpm_ondrej_memcache_hash_strategy }}
+memcache.lock_timeout={{ php_fpm_ondrej_memcache_lock_timeout }}
+memcache.max_failover_attempts={{ php_fpm_ondrej_memcache_max_failover_attempts }}
+memcache.protocol={{ php_fpm_ondrej_memcache_protocol }}
+memcache.redundancy={{ php_fpm_ondrej_memcache_redundancy }}
+memcache.session_redundancy={{ php_fpm_ondrej_memcache_session_redundancy }}
